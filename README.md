@@ -1,5 +1,5 @@
-# example_ddd_ts
-Projeto de exemplo de aplicação de DDD com TypeScript
+# ex_clean_architecture 
+Projeto de exemplo de aplicação de Clean Architecture com TypeScript
 
 
 ### Instalações
