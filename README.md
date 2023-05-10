@@ -50,3 +50,19 @@ npm install sqlite3
 .swcrc
 
 no projeto
+
+### Instalação do Express para rodar API
+npm i express @types/express dotenv
+
+### Instalação do NodeMon para rodar a aplicação
+npm i nodemon
+
+Após no package.json, deve ser adicionado a seguinte linha no bloco scripts
+"dev": "nodemon src/infrastructure/api/server.ts"
+
+Para rodar, executar no cmd
+npm run dev
+
+### Testes E2E
+npm i -D supertest
+npm i --save-dev @types/supertest
