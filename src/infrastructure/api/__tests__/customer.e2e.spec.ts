@@ -98,8 +98,7 @@ describe("E2E test for customer", () => {
                     zip: "12345"
                 },
             });
-        expect(response.status).toBe(200);
-        console.log(response.body.id);        
+        expect(response.status).toBe(200);        
         const id = response.body.id;
         const customerUpdated = await request(app)
             .put(`/customer/${id}`)
@@ -119,5 +118,81 @@ describe("E2E test for customer", () => {
         expect(customerUpdated.body.address.number).toBe(12345);
         expect(customerUpdated.body.address.zip).toBe("12345");
 
+    });
+
+    it("should not update a customer with invalid data", async () => {
+        let response = await request(app)
+            .post("/customer")
+            .send({
+                name: "John Doe",
+                address: {
+                    street: "123 Main St",
+                    city: "Anytown",
+                    number: 12345,
+                    zip: "12345"
+                },
+            });
+        expect(response.status).toBe(200);        
+        const id = response.body.id;    
+
+        response = await request(app)
+            .put(`/customer/${id}`)
+            .send({
+                address: {
+                    street: "123 Main St Updated",
+                    city: "Anytown Updated",
+                    number: 12345,
+                    zip: "12345"
+                },
+            });   
+        expect(response.status).toBe(500);       
+    });
+
+
+    it("should find a customer by id", async () => {
+        const response = await request(app)
+            .post("/customer")
+            .send({
+                name: "John Doe",
+                address: {
+                    street: "123 Main St",
+                    city: "Anytown",
+                    number: 12345,
+                    zip: "12345"
+                },
+            });
+        expect(response.status).toBe(200);
+
+        const id = response.body.id;
+        const customer = await request(app)
+            .get(`/customer/${id}`)
+            .send();
+        
+        expect(customer.status).toBe(200);        
+        expect(customer.body.name).toBe("John Doe");
+        expect(customer.body.address.street).toBe("123 Main St");
+        
+    });
+
+    it("should not find a customer by id", async () => {
+        let response = await request(app)
+            .post("/customer")
+            .send({
+                name: "John Doe",
+                address: {
+                    street: "123 Main St",
+                    city: "Anytown",
+                    number: 12345,
+                    zip: "12345"
+                },
+            });
+        expect(response.status).toBe(200);
+
+        response = await request(app)
+            .get(`/customer/balela`)
+            .send();
+        
+        expect(response.status).toBe(500);       
+        
     });
 });

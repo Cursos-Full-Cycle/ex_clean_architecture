@@ -10,8 +10,7 @@ export default class CreateCustomerUseCase {
         this.CustomerRepository = customerRepository;
     }
 
-    async execute(input: InputCreateCustomerDto) : Promise<OutputCreateCustomerDto> {
-        // const customerId = uuid();
+    async execute(input: InputCreateCustomerDto) : Promise<OutputCreateCustomerDto> {        
         const customer = CustomerFactory.createWithAddress(
             input.name, 
             new Address(

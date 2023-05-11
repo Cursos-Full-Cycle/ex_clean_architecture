@@ -4,6 +4,8 @@ import CustomerRepository from '../../customers/repository/sequelize/customer.re
 import ListCustomerUseCase from '../../../usecase/customer/list/list.customer.usecase';
 import UpdateCustomerUseCase from '../../../usecase/customer/update/update.customer.usecase';
 import { InputUpdateCustomerDto } from '../../../usecase/customer/update/update.customer.dto';
+import FindCustomerUseCase from '../../../usecase/customer/find/find.customer.usecase';
+import { InputFindCustomerDto } from '../../../usecase/customer/find/find.customer.dto';
 
 export const customerRoute = express.Router();
 
@@ -39,14 +41,11 @@ customerRoute.get('/', async (req: Request, res: Response) => {
 });
 
 customerRoute.put('/:id', async (req: Request, res: Response) => {
-    const usecase = new UpdateCustomerUseCase(new CustomerRepository());
-    console.log(req.params.id)
+    const usecase = new UpdateCustomerUseCase(new CustomerRepository());    
 
     const usecaseList = new ListCustomerUseCase(new CustomerRepository());
     const list = await usecaseList.execute({});
-    console.log(list.customers.length);
-    console.log(list.customers[0].id);
-
+    
     try {
         const input: InputUpdateCustomerDto = {
             id: req.params.id,
@@ -61,7 +60,20 @@ customerRoute.put('/:id', async (req: Request, res: Response) => {
         const output = await usecase.execute(input);
         res.status(200).send(output);
     } catch (error) {
-        console.log(error);
+        res.status(500).send(error);
+    }
+});
+
+customerRoute.get('/:id', async (req: Request, res: Response) => {
+    const usecase = new FindCustomerUseCase(new CustomerRepository());    
+
+    try {
+        const input: InputFindCustomerDto = {
+            id: req.params.id            
+        }
+        const output = await usecase.execute(input);
+        res.status(200).send(output);
+    } catch (error) {
         res.status(500).send(error);
     }
 });
