@@ -42,9 +42,6 @@ customerRoute.get('/', async (req: Request, res: Response) => {
 
 customerRoute.put('/:id', async (req: Request, res: Response) => {
     const usecase = new UpdateCustomerUseCase(new CustomerRepository());    
-
-    const usecaseList = new ListCustomerUseCase(new CustomerRepository());
-    const list = await usecaseList.execute({});
     
     try {
         const input: InputUpdateCustomerDto = {
