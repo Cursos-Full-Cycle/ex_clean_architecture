@@ -6,12 +6,12 @@ describe("Customer unit testes", () => {
 
     it("should throw error when id is empty", () => {
         expect(() => new Customer("", "John"))
-            .toThrowError("Id is required");
+            .toThrowError("customer: Id is required");
     });
 
     it("should throw error when name is empty", () => {
         expect(() => new Customer("1", ""))
-            .toThrowError("Name is required");
+            .toThrowError("customer: Name is required");
     });
 
     it("should change name", () => {
@@ -54,6 +54,11 @@ describe("Customer unit testes", () => {
 
         customer.addRewardPoints(100);
         expect(customer.rewardPoints).toBe(200);
+    });
+
+    it("should throw error when name and id is empty", () => {
+        expect(() => new Customer("", ""))
+            .toThrowError("customer: Id is required,customer: Name is required");
     });
 
     
