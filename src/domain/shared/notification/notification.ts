@@ -21,9 +21,7 @@ export default class Notification {
         return this.errors.length > 0;
     }
 
-    getErrors(): NotificationErrorProps[] {
-        console.log(this.errors.length);
-        console.log(this.errors);
+    getErrors(): NotificationErrorProps[] {        
         return this.errors;
     }
 }
