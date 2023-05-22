@@ -66,3 +66,6 @@ npm run dev
 ### Testes E2E
 npm i -D supertest
 npm i --save-dev @types/supertest
+
+### Bibilioteca para validações
+npm install -S yup
