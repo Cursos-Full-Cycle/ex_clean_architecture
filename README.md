@@ -69,3 +69,7 @@ npm i --save-dev @types/supertest
 
 ### Bibilioteca para validações
 npm install -S yup
+
+### Converter json to xml
+npm i jstoxml
+npm i -D @types/jstoxml
